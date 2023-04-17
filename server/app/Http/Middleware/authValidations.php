@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+session_start();
+
 class authValidations
 {
     /**
@@ -15,6 +17,11 @@ class authValidations
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        if(!$_SESSION){
+            return response()->json(['message' => 'Acesso negado']);
+        }
+
         return $next($request);
     }
 }

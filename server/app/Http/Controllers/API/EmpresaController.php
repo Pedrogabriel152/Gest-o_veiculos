@@ -68,17 +68,43 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        dd('aiusgdaisugdiuasgdiguasd');
+        $empresa = Empresa::whereEmail($_SESSION['empresa']['email'])->first();
+        return response()->json($empresa);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            // Validation if user exist
+            $empresaExist = Empresa::whereEmail($_SESSION['empresa']['email'])->first();
+
+            if(!$empresaExist){
+                return response()->json(['message' => "Empresa não encontrada"], 404);
+            };
+            
+            $empresaExist->fill($request->all())->save();
+
+            $_SESSION['empresa'] = [
+                'name' => $empresaExist->name,
+                'email' => $empresaExist->email
+            ];
+
+            return response()->json($empresaExist, 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erro ao editar a empres, tente novamente mais tarde'
+            ], 500);
+        }
+    }
+
+    public function logout(Request $request) {
+        session_destroy();
     }
 
     /**
