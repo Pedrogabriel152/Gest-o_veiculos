@@ -96,17 +96,17 @@ const Home = () => {
                             <div className="container dashboard">
                                 <span>Nenhum chamado encontrado...</span>
 
-                                <Link to={'/new'} className="new">
+                                <Link to={'/vehicles/create'} className="new">
                                     <FiPlus color="#FFF" size={25} />
-                                    Novo chamado
+                                    Novo veiculo
                                 </Link>
                             </div>
                         )
                         : (
                             <>
-                                <Link to={'/new'} className="new">
+                                <Link to={'/vehicles/create'} className="new">
                                     <FiPlus color="#FFF" size={25} />
-                                    Novo chamado
+                                    Novo veiculo
                                 </Link>
                                 <table>
                                     <thead>
@@ -128,11 +128,7 @@ const Home = () => {
                                                 <td data-label="Cor">{item.cor}</td>
                                                 <td data-label="Ano">{item.ano}</td>
                                                 <td data-label="#">
-                                                    <button className="action" style={{backgroundColor: '#3583f6'}}>
-                                                        <FiSearch color="#FFF" size={17} />
-                                                    </button>
-
-                                                    <Link className="action" style={{backgroundColor: '#f6a935'}} to={`/new/${item.id}`}>
+                                                    <Link className="action" style={{backgroundColor: '#f6a935'}} to={`/vehicles/${item.id}`}>
                                                         <FiEdit2 color="#FFF" size={17} />
                                                     </Link>
                                                 </td>
