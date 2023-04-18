@@ -17,9 +17,10 @@ class authValidations
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(!$_SESSION){
-            return response()->json(['message' => 'Acesso negado']);
+        if(!$request->header('session')){
+            if(!$_SESSION){
+                return response()->json(['message' => 'Acesso negado']);
+            }
         }
 
         return $next($request);

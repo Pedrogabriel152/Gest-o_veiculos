@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\VeiculoRepository;
+use App\Models\Empresa;
 use App\Models\Veiculo;
 
 session_start();
@@ -33,7 +34,6 @@ class VeiculoController extends Controller
 
     public function update(Request $request, int $id) {
         try{
-
             $veiculo = Veiculo::whereId($id)->first();
 
             if(!$veiculo){
@@ -51,10 +51,17 @@ class VeiculoController extends Controller
         }
     }
 
-    public function getAll(){
-        $veiculos = Veiculo::paginate(10);
+    public function getAll(Request $request){
+        try{     
+            $empresa = Empresa::whereEmail($request->header('email'))->first();               
+            $veiculos = Veiculo::where('id_empresa', '=', $empresa->id)->paginate(10);
 
-        return response()->json($veiculos, 200);
+            return response()->json($veiculos, 200);
+        }catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erro no sevidor, tente novamente mais tarde'
+            ], 500);
+        }
     }
 
     public function delete(Veiculo $veiculo) {

@@ -68,9 +68,9 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function edit()
+    public function edit(Request $request)
     {
-        $empresa = Empresa::whereEmail($_SESSION['empresa']['email'])->first();
+        $empresa = Empresa::whereEmail($request->header('email'))->first();;
         return response()->json($empresa);
     }
 
@@ -81,7 +81,7 @@ class EmpresaController extends Controller
     {
         try {
             // Validation if user exist
-            $empresaExist = Empresa::whereEmail($_SESSION['empresa']['email'])->first();
+            $empresaExist = Empresa::whereEmail($request->header('email'))->first();
 
             if(!$empresaExist){
                 return response()->json(['message' => "Empresa não encontrada"], 404);
