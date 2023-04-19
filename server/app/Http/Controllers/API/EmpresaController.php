@@ -70,8 +70,15 @@ class EmpresaController extends Controller
      */
     public function edit(Request $request)
     {
-        $empresa = Empresa::whereEmail($request->header('email'))->first();;
-        return response()->json($empresa);
+        try{
+            $empresa = Empresa::whereEmail($request->header('email'))->first();
+            return response()->json($empresa);
+            
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Erro ao editar a empres, tente novamente mais tarde'
+            ], 500);
+        }
     }
 
     /**
@@ -105,13 +112,5 @@ class EmpresaController extends Controller
 
     public function logout(Request $request) {
         session_destroy();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

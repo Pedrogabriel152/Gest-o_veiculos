@@ -14,7 +14,7 @@ const AuthProvider = ({children}: any) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let company = localStorage.getItem('@session');
+        let company = JSON.parse(localStorage.getItem('@session')!);
 
         if(company) {
             setCompany(company);

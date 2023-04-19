@@ -19,7 +19,7 @@ class VeiculoController extends Controller
             return response()->json(['message' => 'Falha ao registrar um novo veiculo, tente novamente mais tarde'], 500);
         }
 
-        return response()->json($newVeiculo, 500);
+        return response()->json($newVeiculo, 200);
     }
 
     public function edit(int $id){
@@ -54,7 +54,7 @@ class VeiculoController extends Controller
     public function getAll(Request $request){
         try{     
             $empresa = Empresa::whereEmail($request->header('email'))->first();               
-            $veiculos = Veiculo::where('id_empresa', '=', $empresa->id)->paginate(10);
+            $veiculos = Veiculo::where('id_empresa', '=', $empresa->id)->paginate(15);
 
             return response()->json($veiculos, 200);
         }catch (\Throwable $th) {
@@ -64,8 +64,14 @@ class VeiculoController extends Controller
         }
     }
 
-    public function delete(Veiculo $veiculo) {
+    public function delete(Veiculo $veiculo, Request $request) {
         try{
+            $empresa = Empresa::whereEmail($request->header('email'))->first();
+            
+            if($veiculo->id_empresa !== $empresa->id){
+                return response()->json(['message' => 'Sem permição para excluir esse veiculo'], 403);
+            }
+
             $veiculo->delete();
 
             return response()->json(['message' => 'Veiculo excluido com sucesso']);

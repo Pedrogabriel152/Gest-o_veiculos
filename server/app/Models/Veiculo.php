@@ -15,6 +15,7 @@ class Veiculo extends Model
         'placa',
         'cor',
         'ano',
+        'tipo',
         'id_empresa'
     ];
 

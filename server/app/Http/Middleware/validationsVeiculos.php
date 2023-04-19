@@ -37,6 +37,10 @@ class validationsVeiculos
             return response()->json(['message' => 'O ano é obrigatório'], 402);
         }
 
+        if(!$request->tipo){
+            return response()->json(['message' => 'O tipo do veiculo é obrigatório'], 402);
+        }
+
         return $next($request);
     }
 }
