@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 
 // CSS
-import '../Login/Login.css';
+import styles from '../Login/Login.module.css';
 import Input from "../../Layouts/Input";
 
 // API
@@ -42,9 +42,9 @@ const Register = () => {
     }
 
     return(
-        <div className="container">
-            <div className='content'>
-                <div className='login'>
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <div className={styles.login}>
                     <h1>Registrar</h1>
                     <form onSubmit={handleSubmit}>
                         <Input 
@@ -86,7 +86,7 @@ const Register = () => {
                         <input type="submit" value={'Cadastre-se'}/>
                     </form>
 
-                    <p className={'link'}>
+                    <p className={styles.link}>
                         Já tem conta? 
                         <Link to={'/login'}> Login</Link>
                     </p>

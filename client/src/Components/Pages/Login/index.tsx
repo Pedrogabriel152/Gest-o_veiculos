@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 
 // CSS
-import './Login.css';
+import styles from './Login.module.css';
 import Input from "../../Layouts/Input";
 
 // API
@@ -28,7 +28,7 @@ const Login = () => {
         })
         .then((res: any) => {
             if(res.data.name && res.data.email){
-                navigate('/');
+                navigate('/dashboard');
                 toast.success(`Bem vindo de volta ${res.data.name}`);
                 localStorage.setItem('@session', JSON.stringify(res.data));
                 console.log(res.data)
@@ -43,9 +43,9 @@ const Login = () => {
     }
 
     return(
-        <div className="container">
-            <div className='content'>
-                <div className='login'>
+        <div className={styles.container}>
+            <div className={styles.content}>
+                <div className={styles.login}>
                     <h1>Login</h1>
                     <form onSubmit={handleSubmit}>
                         <Input 
@@ -69,7 +69,7 @@ const Login = () => {
                         <input type="submit" value={'Logar'}/>
                     </form>
 
-                    <p className={'link'}>
+                    <p className={styles.link}>
                         Ainda não tem conta? 
                         <Link to={'/register'}> Cadastre-se</Link>
                     </p>
