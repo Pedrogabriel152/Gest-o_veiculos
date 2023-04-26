@@ -41,7 +41,7 @@ Suas dependencias são:
    
     - npm install
    
-    Esse comando irá instalar as dependências do projeto no frontend. Após insstalada todas as dependências execute este comando e não feche o terminal.
+   Esse comando irá instalar as dependências do projeto no frontend. Após insstalada todas as dependências execute este comando e não feche o terminal.
     
     - npm start
     
